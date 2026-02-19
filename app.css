@@ -1,0 +1,164 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+p {
+  font-size: 16px;
+  font-family: Roboto;
+  color: #fff;
+  line-height: 24px;
+}
+
+h4 {
+  font-size: 22px;
+  font-family: Roboto;
+  color: #fff;
+  line-height: 32px;
+}
+
+header {
+  width: 100%;
+  height: 80px;
+  background-color: #0075f2;
+}
+
+header nav {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header nav div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+header nav div h3 {
+  font-size: 34px;
+  font-family: Roboto;
+  color: #fff;
+  padding-left: 40px;
+}
+
+header nav div .menu-main {
+  width: fit-content;
+  height: fit-content;
+  list-style: none;
+  margin-left: 26px;
+}
+
+header nav div .menu-main li {
+  display: inline-block;
+}
+
+header nav div .menu-main li a {
+  font-size: 16px;
+  font-family: Roboto;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 16px;
+}
+
+header nav .menu-member {
+  width: fit-content;
+  height: fit-content;
+  list-style: none;
+  margin-right: 40px;
+}
+
+header nav .menu-member li {
+  display: inline-block;
+}
+
+header nav .menu-member li a {
+  font-size: 16px;
+  font-family: Roboto;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 16px;
+}
+
+.header-login-a {
+  background-color: #3f97ef;
+  border-radius: 4px;
+}
+
+header a:hover {
+  opacity: 80%;
+}
+
+body {
+  background-color: #d7e3f3;
+}
+
+label {
+  color: #d6d31a;
+}
+
+.header-login-a:hover {
+  background-color: #2073c7;
+  opacity: 100%;
+}
+
+.sign-up-card {
+  padding: 0;
+  margin: 2em;
+  border-radius: 5px;
+  background-color: #0075f2;
+}
+
+.sign-in-card {
+  color: #ffd166;
+  background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(0, 0, 0, 0.15) 100%
+    ),
+    radial-gradient(
+        at top center,
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(0, 0, 0, 0.4) 120%
+      )
+      #989898;
+  background-blend-mode: multiply, multiply;
+  border-radius: 5px;
+  margin: 2em;
+  padding: 0;
+}
+
+.button {
+  border-radius: 5px;
+}
+
+.signinMain {
+  margin-top: 5em;
+}
+
+#topBar {
+  background-color: #427aa1;
+  height: 10rem;
+}
+
+#post {
+  flex: 2.5;
+  padding: 20px;
+}
+
+#postBar {
+  margin-top: 20px;
+  background-color: green;
+  padding: 10px;
+}
+
+#posts {
+  padding: 4px;
+  font-size: 13px;
+  display: flex;
+}
+
+#posts_cards {
+  background-color: #cfcfcd;
+}
