@@ -1,0 +1,83 @@
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+-- Create DB exactly as used in PDO connection
+CREATE DATABASE IF NOT EXISTS `friendZone`
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_general_ci;
+
+USE `friendZone`;
+
+-- --------------------------------------------------------
+-- USERS (matches your users.sql)
+-- --------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `users` (
+  `users_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `users_uid` TINYTEXT NOT NULL,
+  `users_pwd` LONGTEXT NOT NULL,
+  `users_email` TINYTEXT NOT NULL,
+  PRIMARY KEY (`users_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+-- PROFILES (matches profileinfo.classes.php)
+-- --------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `profiles` (
+  `profiles_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `profiles_bio` TEXT NOT NULL,
+  `profiles_contactNum` VARCHAR(50) NOT NULL,
+  `users_id` INT(11) NOT NULL,
+  PRIMARY KEY (`profiles_id`),
+  UNIQUE KEY `uniq_profiles_users_id` (`users_id`),
+  CONSTRAINT `fk_profiles_users`
+    FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+-- POSTS (matches posts.classes.php)
+-- posts.post_content, posts.users_id, posts.dtg, posts.post_id
+-- --------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `posts` (
+  `post_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `post_content` VARCHAR(280) NOT NULL,
+  `users_id` INT(11) NOT NULL,
+  `dtg` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`post_id`),
+  KEY `idx_posts_users_id_post_id` (`users_id`, `post_id`),
+  CONSTRAINT `fk_posts_users`
+    FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+-- COMMENTS (matches getAllComments() query)
+-- comments.comment_content, comments.dtg, comments.users_id, and filter by post_id
+-- --------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `comments` (
+  `comment_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `comment_content` TEXT NOT NULL,
+  `users_id` INT(11) NOT NULL,
+  `post_id` INT(11) NOT NULL,
+  `dtg` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`comment_id`),
+  KEY `idx_comments_post_id` (`post_id`),
+  KEY `idx_comments_users_id` (`users_id`),
+  CONSTRAINT `fk_comments_users`
+    FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_comments_posts`
+    FOREIGN KEY (`post_id`) REFERENCES `posts` (`post_id`)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+-- Seed users (copied from your uploaded users.sql)
+-- --------------------------------------------------------
+INSERT INTO `users` (`users_id`, `users_uid`, `users_pwd`, `users_email`) VALUES
+(3, 'Tom',   '$2y$10$x5UCIW6Hm9StKPYnWv18Lee7nDe6hgkfgtC90acEHWT8Ql6UZiR9S', 'tom@uu.disc'),
+(4, 'Dave',  '$2y$10$1QqAVI1fYuicM9BKs0isBuMbhRVir6BqlDBm7vZK0OpkI22TgxyAu', 'dave@uu.disc'),
+(5, 'Maria', '$2y$10$JN7QT2hG8fAskWzrM7Miu.Wj8iGwO6TypYabHsm5QODRMwgyDqX02', 'maria@uu.disc');
+
+-- Optional: seed default profile rows (
